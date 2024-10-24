@@ -14,6 +14,7 @@ def get_parser():
     parser.add_argument('--sam_checkpoint', default='../models/sam_vit_h_4b8939.pth', type=str)
     parser.add_argument('--model_type', default='vit_h', type=str)
 
+    parser.add_argument('--background', action='store_true', help='segment background instead of face')
     parser.add_argument('--input_image', default='../images/tomcruise.webp', type=str, help='the image for segmentation')
     parser.add_argument('--output_mask', default='../images/mask.png', type=str, help='the output mask')
 
@@ -38,26 +39,39 @@ def main():
     predictor = SamPredictor(sam)
     predictor.set_image(image)
 
-    input_box = np.array([75, 0, 225, 200])
-    masks, _, _ = predictor.predict(
-        point_coords=None,
-        point_labels=None,
-        box=input_box[None, :],
-        multimask_output=True,
-    )
+    if args.background:
+        input_point = np.array([[150, 100]])
+        input_label = np.array([1])
+        masks, _, _ = predictor.predict(
+            point_coords=input_point,
+            point_labels=input_label,
+            multimask_output=True,
+        )
 
-    mask_image = np.where(masks[1] | masks[2], 255, 0).astype(np.uint8)
-    plt.imsave(args.output_mask, mask_image, cmap='gray', vmin=0, vmax=255)
+        mask_image = np.where(masks[2], 255, 0).astype(np.uint8)
+        plt.imsave(args.output_mask, mask_image, cmap='gray', vmin=0, vmax=255)
 
-    if args.demo:
-        for i, mask in enumerate(masks):
-            plt.figure(figsize=(10,10))
-            plt.imshow(image)
-            show_mask(mask, plt.gca())
-            show_box(input_box, plt.gca())
-            plt.title(f"Mask {i+1}", fontsize=18)
-            plt.axis('on')
-            plt.savefig(os.path.join(args.demo_path, f"mask_{i+1}.jpg"))
+    else:
+        input_box = np.array([75, 0, 225, 200])
+        masks, _, _ = predictor.predict(
+            point_coords=None,
+            point_labels=None,
+            box=input_box[None, :],
+            multimask_output=True,
+        )
+
+        mask_image = np.where(masks[1] | masks[2], 255, 0).astype(np.uint8)
+        plt.imsave(args.output_mask, mask_image, cmap='gray', vmin=0, vmax=255)
+
+        if args.demo:
+            for i, mask in enumerate(masks):
+                plt.figure(figsize=(10,10))
+                plt.imshow(image)
+                show_mask(mask, plt.gca())
+                show_box(input_box, plt.gca())
+                plt.title(f"Mask {i+1}", fontsize=18)
+                plt.axis('on')
+                plt.savefig(os.path.join(args.demo_path, f"mask_{i+1}.jpg"))
 
 
 

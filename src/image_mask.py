@@ -42,8 +42,10 @@ def main():
 
     output = yolo(image)
     boxes = Detections.from_ultralytics(output[0]).xyxy
-    boxes = np.stack([boxes[:, 0] - 40, boxes[:, 1] - 40,
-                      boxes[:, 2] + 40, boxes[:, 3] + 40], axis=1)
+    widths = boxes[:, 2] - boxes[:, 0]
+    heights = boxes[:, 3] - boxes[:, 1]
+    boxes = np.stack([boxes[:, 0] - 0.4 * widths, boxes[:, 1] - 0.4 * heights,
+                      boxes[:, 2] + 0.4 * widths, boxes[:, 3] + 0.4 * heights], axis=1)
     boxes[boxes < 0] = 0
 
     sam = sam_model_registry[args.model_type](checkpoint=args.sam_checkpoint)

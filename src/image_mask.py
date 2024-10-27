@@ -15,8 +15,8 @@ def get_parser():
     parser.add_argument('--model_type', default='vit_h', type=str)
 
     parser.add_argument('--background', action='store_true', help='segment background instead of face')
-    parser.add_argument('--input_image', default='../images/tomcruise.webp', type=str, help='the image for segmentation')
-    parser.add_argument('--output_mask', default='../images/mask.png', type=str, help='the output mask')
+    parser.add_argument('--input_image', default='../images/generated_image2.png', type=str, help='the image for segmentation')
+    parser.add_argument('--output_mask', default='../images/generated_mask2.png', type=str, help='the output mask')
 
     parser.add_argument('--demo', action='store_true', help='demonstrate segmentation result')
     parser.add_argument('--demo_path', default='../images/demo', type=str, help='the directory to store demonstration images')
@@ -52,7 +52,7 @@ def main():
         plt.imsave(args.output_mask, mask_image, cmap='gray', vmin=0, vmax=255)
 
     else:
-        input_box = np.array([75, 0, 225, 200])
+        input_box = np.array([250, 50, 450, 250])
         masks, _, _ = predictor.predict(
             point_coords=None,
             point_labels=None,

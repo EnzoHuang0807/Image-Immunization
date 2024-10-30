@@ -15,15 +15,15 @@ from supervision import Detections
 def get_parser():
     parser = argparse.ArgumentParser(description='Mask Generation Arguments')
     
-    parser.add_argument('--sam_checkpoint', default='../models/sam_vit_h_4b8939.pth', type=str)
+    parser.add_argument('--sam_checkpoint', default='./models/sam_vit_h_4b8939.pth', type=str)
     parser.add_argument('--model_type', default='vit_h', type=str)
 
     parser.add_argument('--background', action='store_true', help='segment background instead of face')
-    parser.add_argument('--input_image', default='../images/elonmusk.webp', type=str, help='the image for segmentation')
-    parser.add_argument('--output_mask', default='../images/mask.png', type=str, help='the output mask')
+    parser.add_argument('--input_image', default='./images/real/001.jpg', type=str, help='the image for segmentation')
+    parser.add_argument('--output_mask', default='./images/real/masks/001_mask.png', type=str, help='the output mask')
 
     parser.add_argument('--demo', action='store_true', help='demonstrate segmentation result')
-    parser.add_argument('--demo_path', default='../images/demo', type=str, help='the directory to store demonstration images')
+    parser.add_argument('--demo_path', default='./images/demo', type=str, help='the directory to store demonstration images')
 
     parser.add_argument('--GPU_ID', default='4', type=str)
     return parser.parse_args()

@@ -3,7 +3,8 @@ attack:
     steps: 100
     input_size: 512
     mode: sds
-    img_path: ./images
+    image_dir: ./images/real/
+    mask_dir: './images/real/masks/'
     output_path: output/
     target_image_path: './images/target/MIST.png'
     alpha: 1

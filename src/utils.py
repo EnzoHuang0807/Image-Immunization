@@ -15,13 +15,11 @@ topil = transforms.ToPILImage()
 
 def recover_image(image, init_image, mask, background=False):
     image = totensor(image)
-    mask = totensor(mask)
-    init_image = totensor(init_image)
     if background:
         result = mask * init_image + (1 - mask) * image
     else:
         result = mask * image + (1 - mask) * init_image
-    return topil(result)
+    return result
 
 def load_png(p, size, mode='bicubic'):
     x = Image.open(p).convert('RGB')
@@ -63,7 +61,7 @@ def si(x, p, to_01=False, normalize=False):
     if isinstance(x, np.ndarray):
         x = torch.from_numpy(x)
     if to_01:
-        torchvision.utils.save_image((x+1)/2, p, normalize=normalize)
+        torchvision.utils.save_image((x + 1) / 2, p, normalize=normalize)
     else:
         torchvision.utils.save_image(x, p, normalize=normalize)
 

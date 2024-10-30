@@ -7,23 +7,25 @@ import os
 import numpy as np
 from omegaconf import DictConfig, OmegaConf
 import PIL
-from PIL import Image
+from PIL import Image, ImageOps
 from einops import rearrange
 import ssl
-import sys
 from tqdm import tqdm
+
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
+
 from pytorch_lightning import seed_everything
 from ldm.util import instantiate_from_config
 from advertorch.attacks import LinfPGDAttack
 from attacks import Linf_PGD, SDEdit
+from diffusers import StableDiffusionInpaintPipeline
 import time
 import wandb
 import glob
 import hydra
-from utils import mp, si, cprint
+from utils import *
 
 
 
@@ -32,7 +34,8 @@ os.environ['TORCH_HOME'] = os.getcwd()
 os.environ['HF_HOME'] = os.path.join(os.getcwd(), 'hub/')
 # device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-
+totensor = transforms.ToTensor()
+topil = transforms.ToPILImage()
 
 
 def load_image_from_path(image_path: str, input_size: int) -> PIL.Image.Image:
@@ -217,8 +220,8 @@ def init(epsilon: int = 16, steps: int = 100, alpha: int = 1,
 
     # parameter
     parameters = {
-        'epsilon': epsilon/255.0 * (1-(-1)),
-        'alpha': alpha/255.0 * (1-(-1)),
+        'epsilon': epsilon / 255.0 * (1 - (-1)),
+        'alpha': alpha / 255.0 * (1 - (-1)),
         'steps': steps,
         'input_size': input_size,
         'mode': mode,
@@ -229,7 +232,8 @@ def init(epsilon: int = 16, steps: int = 100, alpha: int = 1,
     return {'net': net, 'fn': fn, 'parameters': parameters}
 
 
-def infer(img: PIL.Image.Image, config, tar_img: PIL.Image.Image = None, diff_pgd=None, using_target=False, device=0) -> np.ndarray:
+def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.Image.Image, 
+          diff_pgd=None, using_target=False, device=0) -> np.ndarray:
     """
     Process the input image and generate the misted image.
     :param img: The input image or the image block to be misted.
@@ -255,25 +259,24 @@ def infer(img: PIL.Image.Image, config, tar_img: PIL.Image.Image = None, diff_pg
     
     img = img.convert('RGB')
     img = np.array(img).astype(np.float32) / 127.5 - 1.0
-    
-        
     img = img[:, :, :3]
-    if tar_img is not None:
-        tar_img = np.array(tar_img).astype(np.float32) / 127.5 - 1.0
-        tar_img = tar_img[:, :, :3]
-    trans = transforms.Compose([transforms.ToTensor()])
+
+    tar_img = np.array(tar_img).astype(np.float32) / 127.5 - 1.0
+    tar_img = tar_img[:, :, :3]
     
     data_source = torch.zeros([1, 3, input_size, input_size]).to(device)
-    data_source[0] = trans(img).to(device)
+    data_source[0] = totensor(img).to(device)
+
     target_info = torch.zeros([1, 3, input_size, input_size]).to(device)
-    target_info[0] = trans(tar_img).to(device)
+    target_info[0] = totensor(tar_img).to(device)
+
     net.target_info = target_info
     if mode == 'texture_self_enhance':
         net.target_info = data_source
+
     net.mode = mode
     net.rate = rate
     label = torch.zeros(data_source.shape).to(device)
-    print(net(data_source, components=True))
 
     # Targeted PGD attack is applied.
     
@@ -314,27 +317,48 @@ def infer(img: PIL.Image.Image, config, tar_img: PIL.Image.Image = None, diff_pg
     
     print('Attack takes: ', time.time() - time_start_attack)
 
-        
-        
-    
     editor = SDEdit(net=net)
     edit_one_step = editor.edit_list(attack_output, restep=None, t_list=[0.01, 0.05, 0.1, 0.2, 0.3])
-    edit_multi_step   = editor.edit_list(attack_output, restep='ddim100')
-        
+    edit_multi_step  = editor.edit_list(attack_output, restep='ddim100')
     
-    # print(net(attack_output, components=True))
 
-    output = attack_output[0]
-    save_adv = torch.clamp((output + 1.0) / 2.0, min=0.0, max=1.0).detach()
-    grid_adv = 255. * rearrange(save_adv, 'c h w -> h w c').cpu().numpy()
-    grid_adv = grid_adv
-    return grid_adv,  edit_one_step, edit_multi_step
+    pipe_inpaint = StableDiffusionInpaintPipeline.from_pretrained(
+        "stabilityai/stable-diffusion-2-inpainting",
+        revision="fp16",
+        torch_dtype=torch.float16,
+    )
+    pipe_inpaint = pipe_inpaint.to("cuda")
+
+    prompt = 'a man in a restaurant'
+
+    mask_img = mask_img.convert('L')
+    mask_img = ImageOps.invert(mask_img)
+    mask_img = totensor(mask_img).to("cuda")
+        
+    strength = 1
+    guidance_scale = 7.5
+    num_inference_steps = 100
+    attack_output = torch.clamp((attack_output + 1.0) / 2.0, min=0.0, max=1.0).detach()
+
+    inpaint = pipe_inpaint(
+                prompt=prompt, 
+                image=attack_output, 
+                mask_image=mask_img, 
+                eta=1,
+                num_inference_steps=num_inference_steps,
+                guidance_scale=guidance_scale,
+                strength=strength
+    ).images[0]
 
 
+    attack_output = attack_output.cpu()[0]
+    mask_img = mask_img.cpu()
+    inpaint = recover_image(inpaint, attack_output, mask_img)
 
-# Test the script with command: python mist_v2.py 16 100 512 1 2 1
-# or the command: python mist_v2.py 16 100 512 2 2 1, which process
-# the image blockwisely for lower VRAM cost
+
+    return attack_output,  edit_one_step, edit_multi_step, inpaint
+
+
 
 
 @hydra.main(version_base=None, config_path=os.path.join(os.getcwd(), "./configs/attack"), config_name="base")
@@ -344,18 +368,19 @@ def main(cfg : DictConfig):
     
     args = cfg.attack
     
-    output_path, img_path = args.output_path, args.img_path
-    target_image_path = args.target_image_path
+    image_dir, mask_dir = args.image_dir, args.mask_dir
+    output_path, target_image_path = args.output_path, args.target_image_path
     
     epsilon = args.epsilon
     steps = args.steps
     input_size = args.input_size
     mode = args.mode
     alpha = args.alpha
-    rate = args.target_rate if not mode == 'mist' else 1e4
     g_mode = args.g_mode
     diff_pgd = args.diff_pgd
     using_target = args.using_target
+    rate = args.target_rate if not mode == 'mist' else 1e4
+
     device=args.device
     
     
@@ -364,7 +389,11 @@ def main(cfg : DictConfig):
     else:
         mode_name = mode
 
-    output_path = output_path + f'/{mode_name}_eps{epsilon}_steps{steps}_gmode{g_mode}'
+    if mode == 'none':
+        output_path = output_path + f'/{mode_name}'
+    else:
+        output_path = output_path + f'/{mode_name}_eps{epsilon}_steps{steps}_gmode{g_mode}'
+        
     if diff_pgd[0]:
         output_path = output_path + '_diffpgd/'
     else:
@@ -373,69 +402,49 @@ def main(cfg : DictConfig):
     mp(output_path)
     
     input_prompt = 'a photo'
-    if 'anime' in img_path:
+    if 'anime' in image_dir:
         input_prompt = 'an anime picture'
-    elif 'artwork' in img_path:
+    elif 'artwork' in image_dir:
         input_prompt = 'an artwork painting'
-    elif 'landscape' in img_path:
+    elif 'landscape' in image_dir:
         input_prompt = 'a landscape photo'
-    elif 'portrait' in img_path:
+    elif 'portrait' in image_dir:
         input_prompt = 'a portrait photo'
     else:
         input_prompt = 'a photo'
         
-    
-    
     
     config = init(epsilon=epsilon, alpha=alpha, steps=steps, 
                   mode=mode, rate=rate, g_mode=g_mode, device=device, 
                   input_prompt=input_prompt)
 
     
-    # img_paths = glob.glob(img_path+'/*.png') + glob.glob(img_path+'/*.jpg') \
-    #             + glob.glob(img_path+'/*.jpeg') + glob.glob(img_path+'/*.webp') 
-    img_paths = glob.glob(img_path +'/elonmusk.webp')
+    image_paths = glob.glob(image_dir + '/*.png') + glob.glob(image_dir +'/*.jpg') \
+                + glob.glob(image_dir + '/*.jpeg') + glob.glob(image_dir + '/*.webp') 
     
-    # img_paths.sort(key=lambda x: int(x[x.rfind('/')+1:x.rfind('.')]))
+    image_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
     
-    img_path = img_path[:args.max_exp_num]
+    image_paths = image_paths[:args.max_exp_num]
     
-    for image_path in tqdm(img_paths):
+    for image_path in tqdm(image_paths):
         cprint(f'Processing: [{image_path}]', 'y')
         
-        rsplit_image_path = image_path.rsplit('/')
-        file_name = f"/{rsplit_image_path[-2]}/{rsplit_image_path[-1]}/"
-        file_name = file_name.rsplit('.')[0]
+        file_name = image_path.rsplit('/')[-1].rsplit('.')[0]
         mp(output_path + file_name)
-        
+        mask_path = mask_dir + file_name + "_mask.png"
         
         img = load_image_from_path(image_path, input_size)
         tar_img = load_image_from_path(target_image_path, input_size)
-
+        mask_img = load_image_from_path(mask_path, input_size)
+      
         
-        bls = input_size//1
-        config['parameters']["input_size"] = bls
-
-        output_image = np.zeros([input_size, input_size, 3])
+        output, edit_one_step, edit_multi_step, inpaint = \
+        infer(img, mask_img, config, tar_img, diff_pgd=diff_pgd, using_target=using_target, device=device)  
         
-        
-        for i in tqdm(range(1)):
-            for j in tqdm(range(1)):
-                img_block = Image.fromarray(np.array(img)[bls*i: bls*i+bls, bls*j: bls*j + bls])
-                tar_block = Image.fromarray(np.array(tar_img)[bls*i: bls*i+bls, bls*j: bls*j + bls])
-                output_image[bls*i: bls*i+bls, bls*j: bls*j + bls], edit_one_step, edit_multi_step = infer(img_block, config, tar_block, diff_pgd=diff_pgd, using_target=using_target, device=device)
-        
-        output = Image.fromarray(output_image.astype(np.uint8))
-        
-        time_start_sdedit = time.time()
+        si(output, output_path + f'/{file_name}_attacked.png')
         si(edit_one_step, output_path + f'{file_name}_onestep.png')
         si(edit_multi_step, output_path + f'{file_name}_multistep.png')
-        print('SDEdit takes: ', time.time() - time_start_sdedit)
-        
-        
-        output_name = output_path + f'/{file_name}_attacked.png'
-        
-        output.save(output_name)
+        si(inpaint, output_path + f'{file_name}_inpaint.png')
         
         
         print('TIME CMD=', time.time() - time_start)

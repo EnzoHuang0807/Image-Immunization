@@ -190,7 +190,7 @@ def init(epsilon: int = 16, steps: int = 100, alpha: int = 1,
     """
 
     if ckpt is None:
-        ckpt = 'models/sd-v1-4.ckpt'
+        ckpt = 'models/sd-v1-2.ckpt'
 
     if base is None:
         base = 'configs/stable-diffusion/v1-inference-attack.yaml'
@@ -323,9 +323,7 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
     
 
     pipe_inpaint = StableDiffusionInpaintPipeline.from_pretrained(
-        "stabilityai/stable-diffusion-2-inpainting",
-        revision="fp16",
-        torch_dtype=torch.float16,
+        "stable-diffusion-v1-5/stable-diffusion-inpainting"
     )
     pipe_inpaint = pipe_inpaint.to("cuda")
 

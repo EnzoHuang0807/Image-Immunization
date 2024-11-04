@@ -1,6 +1,7 @@
 __pycache__/
 tmp/
 
+images/
 models/
 clip/
 taming-transformers/

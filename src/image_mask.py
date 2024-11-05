@@ -95,7 +95,7 @@ def main():
 
                 plt.title(f"Mask {i+1}-{j+1}", fontsize=18)
                 plt.axis('on')
-                plt.savefig(os.path.join(args.demo_path, f"mask_{i+1}-{j+1}.jpg"))
+                plt.savefig(os.path.join(args.demo_path, f"mask_{i+1}_{j+1}.jpg"))
         
         mask_image = ndimage.binary_fill_holes(mask_image).astype(np.uint8) * 255
         plt.imsave(args.output_mask, mask_image, cmap='gray', vmin=0, vmax=255)

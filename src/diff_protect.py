@@ -323,7 +323,8 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
     
 
     pipe_inpaint = StableDiffusionInpaintPipeline.from_pretrained(
-        "stable-diffusion-v1-5/stable-diffusion-inpainting"
+        "stable-diffusion-v1-5/stable-diffusion-inpainting",
+        safety_checker=None,
     )
     pipe_inpaint = pipe_inpaint.to("cuda")
 

@@ -1,7 +1,7 @@
 matplotlib==3.7.5
 numpy==1.24.4
-torch==2.4.0
-torchvision==0.19.0
+torch==2.5.1
+torchvision==0.20.1
 opencv-python==4.10.0.84
 albumentations==0.4.3
 diffusers
@@ -9,14 +9,14 @@ pudb==2019.2
 invisible-watermark
 imageio==2.9.0
 imageio-ffmpeg==0.4.2
-pytorch-lightning==1.4.2
+pytorch-lightning==2.4.0
 omegaconf==2.3.0
 test-tube>=0.7.5
 streamlit>=0.73.1
 einops==0.3.0
 torch-fidelity==0.3.0
 transformers
-torchmetrics==0.6.0
+torchmetrics==1.5.2
 kornia==0.6
 gradio
 wandb

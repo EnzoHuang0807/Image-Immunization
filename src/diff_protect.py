@@ -320,7 +320,7 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
     editor = SDEdit(net=net)
     edit_one_step = editor.edit_list(attack_output, restep=None, t_list=[0.01, 0.05, 0.1, 0.2, 0.3])
     edit_multi_step  = editor.edit_list(attack_output, restep='ddim100')
-    
+
 
     pipe_inpaint = StableDiffusionInpaintPipeline.from_pretrained(
         "stable-diffusion-v1-5/stable-diffusion-inpainting",
@@ -328,7 +328,7 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
     )
     pipe_inpaint = pipe_inpaint.to("cuda")
 
-    prompt = 'a man in a restaurant'
+    prompt = 'a person in a restaurant'
 
     mask_img = mask_img.convert('L')
     mask_img = ImageOps.invert(mask_img)
@@ -346,14 +346,13 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
                 eta=1,
                 num_inference_steps=num_inference_steps,
                 guidance_scale=guidance_scale,
-                strength=strength
+                strength=strength,
     ).images[0]
 
 
     attack_output = attack_output.cpu()[0]
     mask_img = mask_img.cpu()
     inpaint = recover_image(inpaint, attack_output, mask_img)
-
 
     return attack_output,  edit_one_step, edit_multi_step, inpaint
 
@@ -441,8 +440,8 @@ def main(cfg : DictConfig):
         infer(img, mask_img, config, tar_img, diff_pgd=diff_pgd, using_target=using_target, device=device)  
         
         si(output, output_path + f'/{file_name}_attacked.png')
-        si(edit_one_step, output_path + f'{file_name}_onestep.png')
-        si(edit_multi_step, output_path + f'{file_name}_multistep.png')
+        # si(edit_one_step, output_path + f'{file_name}_onestep.png')
+        # si(edit_multi_step, output_path + f'{file_name}_multistep.png')
         si(inpaint, output_path + f'{file_name}_inpaint.png')
         
         

@@ -1,10 +1,15 @@
+import cv2
 import torch
-from transformers import CLIPImageProcessor, CLIPModel, CLIPTokenizer, CLIPProcessor
+from transformers import CLIPImageProcessor, CLIPModel
 from PIL import Image
+
+from torchmetrics.functional.multimodal import clip_score
+from functools import partial
 
 # Load the CLIP model
 model_ID = "openai/clip-vit-base-patch32"
 model = CLIPModel.from_pretrained(model_ID)
+clip_score_fn = partial(clip_score, model_name_or_path=model_ID)
 
 preprocess = CLIPImageProcessor.from_pretrained(model_ID)
 
@@ -38,22 +43,7 @@ def clip_sim(a, b):
     return similarity_score.item()
 
 
-def clip_(image_path, text_prompt):
-
-    processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-    image = Image.open(image_path).convert("RGB")
-    inputs = processor(text=[text_prompt], images=image, return_tensors="pt", padding=True)
-    
-    input_ids = inputs['input_ids']
-    pixel_values = inputs['pixel_values']
-
-    # Run the model and get the logits
-    with torch.no_grad():
-        outputs = model(input_ids=input_ids, pixel_values=pixel_values)
-        logits_per_image = outputs.logits_per_image 
-        return logits_per_image.item() 
-
-if __name__ == '__main__':
-    score = clip_sim('/ssdscratch/hxue45/data/phd_2/diff_mist/out_fid/advdm_eps16_steps100_gmode-/anime/0.1/0.png', 
-             '/ssdscratch/hxue45/data/phd_2/diff_mist/out_fid/advdm_eps16_steps100_gmode-/anime/0.1/0.png')
-    print(score)
+def calculate_clip_score(image_path, prompts):
+    img = cv2.imread(image_path).astype("uint8")
+    clip_score = clip_score_fn(torch.from_numpy(img).permute(0, 3, 1, 2), prompts).detach()
+    return round(float(clip_score), 4)

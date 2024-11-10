@@ -80,8 +80,6 @@ def mp(p):
 def get_plt_color_list():
     return ['red', 'green', 'blue', 'black', 'orange', 'yellow', 'black']
 
-
-    
    
 def draw_bound(a, m, color):
     if a.device != 'cpu':
@@ -92,21 +90,6 @@ def draw_bound(a, m, color):
         c = torch.ones((3, 224, 224)) * torch.tensor([0, 1, 0])[:, None, None]
     
     return c * m + a * (1 - m)
-
-# class EasyDict(dict):
-#     """Convenience class that behaves like a dict but allows access with the attribute syntax."""
-
-#     def __getattr__(self, name: str) -> Any:
-#         try:
-#             return self[name]
-#         except KeyError:
-#             raise AttributeError(name)
-
-#     def __setattr__(self, name: str, value: Any) -> None:
-#         self[name] = value
-
-#     def __delattr__(self, name: str) -> None:
-#         del self[name]
 
 
 def smooth_loss(output, weight):
@@ -164,9 +147,9 @@ def psnr_(a, b):
     compressed = cv2.imread(b)
     
     mse = np.mean((original - compressed) ** 2)
-    if(mse == 0):  # MSE is zero means no noise is present in the signal .
-                  # Therefore PSNR have no importance.
+    if(mse == 0):  # MSE is zero means no noise is present in the signal . Therefore PSNR have no importance.
         return 100
+    
     max_pixel = 255.0
     psnr = 20 * log10(max_pixel / sqrt(mse))
     return psnr

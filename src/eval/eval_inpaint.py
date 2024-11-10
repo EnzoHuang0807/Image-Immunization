@@ -4,42 +4,27 @@
 # feature 2: Diff-PGD
 
 import os
-import numpy as np
-from omegaconf import DictConfig, OmegaConf
+import ssl
+import glob
+import torch
+
 import PIL
 from PIL import Image
-from einops import rearrange
-import ssl
-import sys
 from tqdm import tqdm
-import torch
-import torch.nn as nn
-import torchvision.transforms as transforms
-from pytorch_lightning import seed_everything
 from ldm.util import instantiate_from_config
-from advertorch.attacks import LinfPGDAttack
-from attacks import Linf_PGD, SDEdit
-import time
-import wandb
-import glob
-import hydra
-from utils import mp, si, cprint, load_png
-import matplotlib.pylab as plt
+
+from utils import cprint, load_png
+from utils import lpips_, ssim_, psnr_
 
 from utils import lpips_, ssim_, psnr_
 
-from clip_similarity import clip_sim, clip_
-
-
-
+from clip_similarity import calculate_clip_score
 
 
 ssl._create_default_https_context = ssl._create_unverified_context
 os.environ['TORCH_HOME'] = os.getcwd()
 os.environ['HF_HOME'] = os.path.join(os.getcwd(), 'hub/')
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-
-
 
 
 def load_image_from_path(image_path: str, input_size: int) -> PIL.Image.Image:
@@ -95,15 +80,11 @@ def load_model_from_config(config, ckpt, verbose: bool = False):
     return model
 
 
-
-
-def normalized_(x):
-    return (x - x.min() / x.max() - x.min())
-
-
 def get_dir_name_from_config(mode, g_mode, using_target, eps=16, steps=100, target_rate=5, prefix='output'):
+    
     if mode == 'none':
         return f'{prefix}/none/'
+    
     if using_target and mode == 'sds':
         mode_name = f'sdsT{target_rate}'
     else:
@@ -120,111 +101,65 @@ EXP_LIST = [
     ('sds', '-', False, -1),
     ('sds', '-', True, 1),
     ('sds', '-', True, 5),
-    ('texture_only', '+', False, -1),
-    ('none', '-', False, -1),
-
+    ('texture_only', '+', False, -1)
 ]
 
 
-def dm_range(x):
-    return 2 * x - 1
-
-def rdm_range(x):
-    return (x+1)/2
-
-def encode(x, model):
-    z = model.get_first_stage_encoding(model.encode_first_stage(x)).to(x.device)
-    return z
-
-def linf(x):
-    return torch.abs(x).max()
-
 @torch.no_grad()
 def main():
-    
-    
-    # ckpt = 'ckpt/model.ckpt'
-    # base = 'configs/stable-diffusion/v1-inference-attack.yaml'
-
-    # config_path = os.path.join(os.getcwd(), base)
-    # config = OmegaConf.load(config_path)
-
-    # ckpt_path = os.path.join(os.getcwd(), ckpt)
-    # model = load_model_from_config(config, ckpt_path).to(device)
-    
-    
-    
     
     for exp_config in tqdm(EXP_LIST):
         cprint(exp_config, 'y')
         mode, g_mode, using_target, target_rate = exp_config
         
-        dir_name = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate)
-        cprint('fetching dir: ' + dir_name, 'g')
+        adv_dir = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate)
+        cprint('fetching dir: ' + adv_dir, 'g')
         
-        clean_name = "output/none/"
-        
-
+        clean_dir = get_dir_name_from_config('none', '-', using_target=False, target_rate=target_rate)
+        save_path = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate, prefix='evaluation')
+ 
+            
         clip_score_list = []
-        psnr_score_list = []
-        lpips_score_list = []
-        ssim_score_list = []
-
+            
+        x_list = []
+        x_adv_list =[]
         
-        for i in tqdm(range(1, 3)):
-            img_path = os.path.join(dir_name, f'00{i}_inpaint.png')
-            clean_img_path = os.path.join(clean_name, f'00{i}_inpaint.png')
+        adv_img_paths = glob.glob(adv_dir + '/*_inpaint.png') 
+        adv_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
+
+        clean_img_paths = glob.glob(clean_dir + '/*_inpaint.png') 
+        clean_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
+
+        for i in tqdm(range(len(adv_img_paths))):
+            adv_img_path = adv_img_paths[i]
+            clean_img_path = clean_img_paths[i]
             
-            gen_img_path = os.path.join(dir_name, f'00{i}_inpaint.png')
-            
-            if not os.path.exists(img_path):
-                print("NO SUCH PATH", os.path.join(dir_name, f'00{i}_inpaint.png'))
+            if not os.path.exists(adv_img_path):
+                print("NO SUCH PATH", adv_img_path)
                 break
+        
+            x_adv = load_png(adv_img_path, 512)[None, ...].to(device)
+            x = load_png(clean_img_path, 512)[None, ...].to(device)
+             
             
-
-                # x_gen_sub = x_gen[:, :, :, (j+1)*512:(j+1)*512+512]
-                
-                # mp(save_p)
-                # # print(save_p + f'{i}.png')
-                # si(x_gen_sub, save_p + f'{i}.png')
-            # print(x_gen_sub.shape)
-
-            clip_score = clip_(gen_img_path, "a girl in a park")
-
-            ssim_x = ssim_(img_path, clean_img_path)
-            # lpips_x = lpips_(x, x_adv)
-            psnr_x = psnr_(img_path, clean_img_path)
-
-            lpips_score = lpips_(load_png(img_path, 512),load_png(clean_img_path, 512))
-            lpips_score = lpips_score[0, 0, 0, 0].cpu().tolist()
-
+            x_list.append(x)
+            x_adv_list.append(x_adv)
+            
+            clip_score = calculate_clip_score(adv_img_path, 'a person in a restaurant')
             clip_score_list.append(clip_score)
-            psnr_score_list.append(psnr_x)
-            lpips_score_list.append(lpips_score)
-            ssim_score_list.append(ssim_x)
-                    
-                
-            
-            
+
         
-        
-        # save_path_style = os.path.join(save_path, style+'/')
-        # mp(save_path_style)
+        torch.save({
+            'clip_score': clip_score_list
+        }, save_path +'/inpaint_metrics.bin')
 
-        # torch.save({
-        #     'clip_score':clip_score_list,
-        #     'psnr_score':psnr_score_list,
-        #     'lpips_score':lpips_score_list,
-        #     'ssim_score': ssim_score_list
+        cprint({
+            'clip_score': clip_score_list
+        }, 'y')
+            
 
-        # }, save_path_style+'/metrics.bin')
-
-        print(
-            f"clip_score : {clip_score_list}",
-            f"psnr_score : {psnr_score_list}",
-            f"lpips_score : {lpips_score_list}",
-            f"ssim_score : {ssim_score_list}"
-        )
+if __name__ == '__main__':
+    main()
             
                 
                 

@@ -78,7 +78,7 @@ def main():
                 box=box,
                 multimask_output=True,
             )
-            mask_image |= np.where(masks[1] | masks[2], 1, 0).astype(np.uint8)
+            mask_image |= np.where(masks[0] | masks[1] | masks[2], 1, 0).astype(np.uint8)
             
 
         if args.demo:

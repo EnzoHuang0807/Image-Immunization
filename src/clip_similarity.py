@@ -44,6 +44,6 @@ def clip_sim(a, b):
 
 
 def calculate_clip_score(image_path, prompts):
-    img = cv2.imread(image_path).astype("uint8")
+    img = cv2.imread(image_path).astype("uint8")[None, ...]
     clip_score = clip_score_fn(torch.from_numpy(img).permute(0, 3, 1, 2), prompts).detach()
     return round(float(clip_score), 4)

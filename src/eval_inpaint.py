@@ -13,7 +13,7 @@ from PIL import Image
 from tqdm import tqdm
 from ldm.util import instantiate_from_config
 
-from utils import cprint, load_png
+from utils import cprint, load_png, mp
 from utils import lpips_, ssim_, psnr_
 
 from utils import lpips_, ssim_, psnr_
@@ -99,9 +99,9 @@ EXP_LIST = [
     ('mist', '+', False, -1),
     ('sds', '+', False, -1),
     ('sds', '-', False, -1),
-    ('sds', '-', True, 1),
     ('sds', '-', True, 5),
-    ('texture_only', '+', False, -1)
+    ('texture_only', '+', False, -1),
+    ('none', '-', False, -1)
 ]
 
 
@@ -116,19 +116,22 @@ def main():
         cprint('fetching dir: ' + adv_dir, 'g')
         
         clean_dir = get_dir_name_from_config('none', '-', using_target=False, target_rate=target_rate)
-        save_path = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate, prefix='evaluation')
- 
+        save_path = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate, prefix='eval')
+        mp(save_path)
             
         clip_score_list = []
+
+        ssim_list = []
+        psnr_list = []
             
         x_list = []
         x_adv_list =[]
         
         adv_img_paths = glob.glob(adv_dir + '/*_inpaint.png') 
-        adv_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
+        adv_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('_')]))
 
         clean_img_paths = glob.glob(clean_dir + '/*_inpaint.png') 
-        clean_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
+        clean_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('_')]))
 
         for i in tqdm(range(len(adv_img_paths))):
             adv_img_path = adv_img_paths[i]
@@ -144,16 +147,31 @@ def main():
             
             x_list.append(x)
             x_adv_list.append(x_adv)
+
+            ssim_x = ssim_(adv_img_path, clean_img_path)
+            psnr_x = psnr_(adv_img_path, clean_img_path)
+            ssim_list.append(ssim_x)
+            psnr_list.append(psnr_x)
             
             clip_score = calculate_clip_score(adv_img_path, 'a person in a restaurant')
             clip_score_list.append(clip_score)
 
-        
+        x_adv_all = torch.cat(x_adv_list, 0)
+        x_all = torch.cat(x_list, 0)
+        lpips_score = lpips_(x_all, x_adv_all)
+        lpips_score = lpips_score[:, 0, 0, 0].cpu().tolist()
+
         torch.save({
+            'ssim':ssim_list,
+            'lpips':lpips_score,
+            'psnr':psnr_list,
             'clip_score': clip_score_list
         }, save_path +'/inpaint_metrics.bin')
 
         cprint({
+            'ssim':ssim_list,
+            'lpips':lpips_score,
+            'psnr':psnr_list,
             'clip_score': clip_score_list
         }, 'y')
             

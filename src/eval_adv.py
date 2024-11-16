@@ -13,7 +13,7 @@ from PIL import Image
 from tqdm import tqdm
 from ldm.util import instantiate_from_config
 
-from utils import cprint, load_png
+from utils import cprint, load_png, mp
 from utils import lpips_, ssim_, psnr_
 
 
@@ -82,7 +82,7 @@ def normalized_(x):
     return (x - x.min() / x.max() - x.min())
 
 
-def get_dir_name_from_config(mode, g_mode, using_target, eps=16, steps=100, target_rate=5, prefix='out_iclr'):
+def get_dir_name_from_config(mode, g_mode, using_target, eps=16, steps=100, target_rate=5, prefix='output'):
     if mode == 'none':
         return f'{prefix}/none/'
     
@@ -100,10 +100,9 @@ EXP_LIST = [
     ('mist', '+', False, -1),
     ('sds', '+', False, -1),
     ('sds', '-', False, -1),
-    ('sds', '-', True, 1),
     ('sds', '-', True, 5),
-    ('texture_only', '+', False, -1)
-
+    ('texture_only', '+', False, -1),
+    ('none', '-', False, -1)
 ]
 
 
@@ -118,8 +117,8 @@ def main():
         cprint('fetching dir: ' + adv_dir, 'g')
         
         clean_dir = get_dir_name_from_config('none', '-', using_target=False, target_rate=target_rate)
-        save_path = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate, prefix='evaluation')
- 
+        save_path = get_dir_name_from_config(mode, g_mode, using_target, target_rate=target_rate, prefix='eval')
+        mp(save_path)
             
         ssim_list = []
         psnr_list = []
@@ -128,10 +127,10 @@ def main():
         x_adv_list =[]
         
         adv_img_paths = glob.glob(adv_dir + '/*_attacked.png') 
-        adv_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
+        adv_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('_')]))
 
         clean_img_paths = glob.glob(clean_dir + '/*_attacked.png') 
-        clean_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('.')]))
+        clean_img_paths.sort(key=lambda x: int(x[x.rfind('/') + 1 : x.rfind('_')]))
 
         for i in tqdm(range(len(adv_img_paths))):
             adv_img_path = adv_img_paths[i]

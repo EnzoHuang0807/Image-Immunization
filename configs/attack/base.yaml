@@ -3,8 +3,8 @@ attack:
     steps: 100
     input_size: 512
     mode: sds
-    image_dir: /tmp2/SHHQ-1.0_samples/
-    mask_dir: '/tmp2/SHHQ-1.0_samples/masks/'
+    image_dir: ./SHHQ-1.0_samples/
+    mask_dir: './SHHQ-1.0_samples/face_masks/'
     output_path: output/
     target_image_path: './images/target/MIST.png'
     alpha: 1

@@ -6,7 +6,8 @@ clip/
 taming-transformers/
 
 hub/
-output/
-outputs/
+output*/
+eval/
 test_sds/
+
 SHHQ-1.0_samples/

@@ -347,6 +347,7 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
                 num_inference_steps=num_inference_steps,
                 guidance_scale=guidance_scale,
                 strength=strength,
+                generator=torch.manual_seed(0)
     ).images[0]
 
 

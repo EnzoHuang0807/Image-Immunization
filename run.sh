@@ -1,15 +1,15 @@
 #!/bin/bash
 
 
-# for file in SHHQ-1.0_samples/*; do
+for file in images/generated/*; do
 
-#   if [ -f "$file" ]; then
-#     filename=$(basename "$file" | cut -d. -f1)
+  if [ -f "$file" ]; then
+    filename=$(basename "$file" | cut -d. -f1)
 
-#     python3 src/image_mask.py  --input_image ./SHHQ-1.0_samples/"$filename".png \
-#      --output_mask ./SHHQ-1.0_samples/face_masks/"$filename"_mask.png
-#   fi  
-# done
+    python3 src/image_mask.py  --input_image images/generated/"$filename".png \
+     --output_mask images/generated/masks/"$filename"_mask.png
+  fi  
+done
 
 python src/diff_protect.py attack.mode='none'
 

@@ -1,0 +1,1002 @@
+[
+    {
+        "image": "image_1.png",
+        "prompt": "A child playing in a sunny park.",
+        "seed": 17903,
+        "scores": {
+            "brisque": 15.43292236328125,
+            "clip_score": 32.047149658203125,
+            "average_normalized_score": 0.7036033339723163
+        }
+    },
+    {
+        "image": "image_2.png",
+        "prompt": "An elderly man reading a book in a cozy library.",
+        "seed": 50049,
+        "scores": {
+            "brisque": 43.4835205078125,
+            "clip_score": 37.39503479003906,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_3.png",
+        "prompt": "A chef preparing a gourmet meal in a bustling kitchen.",
+        "seed": 94034,
+        "scores": {
+            "brisque": 38.025390625,
+            "clip_score": 31.886207580566406,
+            "average_normalized_score": 0.9441545888261134
+        }
+    },
+    {
+        "image": "image_4.png",
+        "prompt": "A person having a picnic by a lakeside.",
+        "seed": 71061,
+        "scores": {
+            "brisque": 36.5169677734375,
+            "clip_score": 33.53047180175781,
+            "average_normalized_score": 0.9696027573915584
+        }
+    },
+    {
+        "image": "image_5.png",
+        "prompt": "A young woman practicing yoga on a mountain.",
+        "seed": 32045,
+        "scores": {
+            "brisque": 23.4844970703125,
+            "clip_score": 34.4343147277832,
+            "average_normalized_score": 0.9284032702713931
+        }
+    },
+    {
+        "image": "image_6.png",
+        "prompt": "A person taking a selfie at the beach.",
+        "seed": 21878,
+        "scores": {
+            "brisque": 25.04437255859375,
+            "clip_score": 34.18302536010742,
+            "average_normalized_score": 0.8020153078527081
+        }
+    },
+    {
+        "image": "image_7.png",
+        "prompt": "A firefighter rescuing a kitten from a tree.",
+        "seed": 95502,
+        "scores": {
+            "brisque": 18.498046875,
+            "clip_score": 39.22737121582031,
+            "average_normalized_score": 0.9040208682355064
+        }
+    },
+    {
+        "image": "image_8.png",
+        "prompt": "A teacher explaining a lesson to a student in a classroom.",
+        "seed": 39593,
+        "scores": {
+            "brisque": 34.28582763671875,
+            "clip_score": 30.57207489013672,
+            "average_normalized_score": 0.9832242754900006
+        }
+    },
+    {
+        "image": "image_9.png",
+        "prompt": "A person enjoying a romantic dinner in a fancy restaurant.",
+        "seed": 50363,
+        "scores": {
+            "brisque": 62.10943603515625,
+            "clip_score": 32.32449722290039,
+            "average_normalized_score": 0.8121988807595444
+        }
+    },
+    {
+        "image": "image_10.png",
+        "prompt": "A woman painting a beautiful landscape on a canvas.",
+        "seed": 81146,
+        "scores": {
+            "brisque": 24.73236083984375,
+            "clip_score": 36.65648651123047,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_11.png",
+        "prompt": "A hiker reaching the peak of a rocky mountain.",
+        "seed": 87570,
+        "scores": {
+            "brisque": 18.01519775390625,
+            "clip_score": 31.769365310668945,
+            "average_normalized_score": 0.7036679031193085
+        }
+    },
+    {
+        "image": "image_12.png",
+        "prompt": "A musician playing guitar on a busy city street.",
+        "seed": 95549,
+        "scores": {
+            "brisque": 27.89617919921875,
+            "clip_score": 32.37864685058594,
+            "average_normalized_score": 0.7400048258138878
+        }
+    },
+    {
+        "image": "image_13.png",
+        "prompt": "A child learning to ride a bicycle with a parent\u2019s help.",
+        "seed": 24840,
+        "scores": {
+            "brisque": 28.23809814453125,
+            "clip_score": 32.62217712402344,
+            "average_normalized_score": 0.8010034456593429
+        }
+    },
+    {
+        "image": "image_14.png",
+        "prompt": "A scientist working in a laboratory with test tubes.",
+        "seed": 55415,
+        "scores": {
+            "brisque": 49.27789306640625,
+            "clip_score": 28.758825302124023,
+            "average_normalized_score": 0.7827775323392605
+        }
+    },
+    {
+        "image": "image_15.png",
+        "prompt": "A person meditating peacefully on a cliff at sunrise.",
+        "seed": 8241,
+        "scores": {
+            "brisque": 4.87994384765625,
+            "clip_score": 35.9906120300293,
+            "average_normalized_score": 0.8088645973158485
+        }
+    },
+    {
+        "image": "image_16.png",
+        "prompt": "A person dancing at a lively outdoor festival.",
+        "seed": 12019,
+        "scores": {
+            "brisque": 34.5823974609375,
+            "clip_score": 31.938385009765625,
+            "average_normalized_score": 0.798576634175455
+        }
+    },
+    {
+        "image": "image_17.png",
+        "prompt": "A person strolling through a flower garden in spring.",
+        "seed": 31831,
+        "scores": {
+            "brisque": 24.65460205078125,
+            "clip_score": 35.28555679321289,
+            "average_normalized_score": 0.7897348966828641
+        }
+    },
+    {
+        "image": "image_18.png",
+        "prompt": "A man jogging along a river in the early morning.",
+        "seed": 13813,
+        "scores": {
+            "brisque": 20.04180908203125,
+            "clip_score": 35.14152526855469,
+            "average_normalized_score": 0.8898954471241701
+        }
+    },
+    {
+        "image": "image_19.png",
+        "prompt": "A farmer harvesting crops in a golden field.",
+        "seed": 68037,
+        "scores": {
+            "brisque": 7.77593994140625,
+            "clip_score": 34.601924896240234,
+            "average_normalized_score": 0.6625338257108945
+        }
+    },
+    {
+        "image": "image_20.png",
+        "prompt": "A child blowing bubbles in a grassy backyard.",
+        "seed": 91257,
+        "scores": {
+            "brisque": 28.8941650390625,
+            "clip_score": 37.32601547241211,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_21.png",
+        "prompt": "A mother reading a bedtime story to her child.",
+        "seed": 79248,
+        "scores": {
+            "brisque": 34.481689453125,
+            "clip_score": 31.572608947753906,
+            "average_normalized_score": 0.8787902983645282
+        }
+    },
+    {
+        "image": "image_22.png",
+        "prompt": "A young woman painting pottery in an art studio.",
+        "seed": 30005,
+        "scores": {
+            "brisque": 26.4822998046875,
+            "clip_score": 36.8936882019043,
+            "average_normalized_score": 0.8039212311537827
+        }
+    },
+    {
+        "image": "image_23.png",
+        "prompt": "A tourist photographing historic landmarks in a city.",
+        "seed": 20342,
+        "scores": {
+            "brisque": 32.46124267578125,
+            "clip_score": 33.520973205566406,
+            "average_normalized_score": 0.9046749269386285
+        }
+    },
+    {
+        "image": "image_24.png",
+        "prompt": "A person camping by a warm fire at night.",
+        "seed": 79792,
+        "scores": {
+            "brisque": 36.305419921875,
+            "clip_score": 31.64884376525879,
+            "average_normalized_score": 0.6798091064680571
+        }
+    },
+    {
+        "image": "image_25.png",
+        "prompt": "A father teaching his child to fish by a lake.",
+        "seed": 85154,
+        "scores": {
+            "brisque": 47.41461181640625,
+            "clip_score": 30.548749923706055,
+            "average_normalized_score": 0.7411263509813271
+        }
+    },
+    {
+        "image": "image_26.png",
+        "prompt": "A person watching a movie in a cozy living room.",
+        "seed": 90349,
+        "scores": {
+            "brisque": 19.7723388671875,
+            "clip_score": 31.88600730895996,
+            "average_normalized_score": 0.9270139352868187
+        }
+    },
+    {
+        "image": "image_27.png",
+        "prompt": "A person singing carols in the snow.",
+        "seed": 26433,
+        "scores": {
+            "brisque": 31.22412109375,
+            "clip_score": 36.90798568725586,
+            "average_normalized_score": 0.8644807757418708
+        }
+    },
+    {
+        "image": "image_28.png",
+        "prompt": "A skateboarder performing tricks in an urban park.",
+        "seed": 91265,
+        "scores": {
+            "brisque": 22.64923095703125,
+            "clip_score": 33.5878791809082,
+            "average_normalized_score": 0.8790275138228875
+        }
+    },
+    {
+        "image": "image_29.png",
+        "prompt": "A surfer riding a wave at sunrise.",
+        "seed": 96914,
+        "scores": {
+            "brisque": 20.52728271484375,
+            "clip_score": 34.52245330810547,
+            "average_normalized_score": 0.8764162784624586
+        }
+    },
+    {
+        "image": "image_30.png",
+        "prompt": "A bride posing for wedding photos.",
+        "seed": 7988,
+        "scores": {
+            "brisque": 29.28179931640625,
+            "clip_score": 29.201303482055664,
+            "average_normalized_score": 0.7930040853668157
+        }
+    },
+    {
+        "image": "image_31.png",
+        "prompt": "A gardener planting flowers in a backyard.",
+        "seed": 66605,
+        "scores": {
+            "brisque": 30.8330078125,
+            "clip_score": 33.333961486816406,
+            "average_normalized_score": 0.9811963935585157
+        }
+    },
+    {
+        "image": "image_32.png",
+        "prompt": "A person cooking dinner in a kitchen.",
+        "seed": 36498,
+        "scores": {
+            "brisque": 35.2066650390625,
+            "clip_score": 29.430892944335938,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_33.png",
+        "prompt": "A woman relaxing with a book under a tree.",
+        "seed": 33257,
+        "scores": {
+            "brisque": 14.111083984375,
+            "clip_score": 36.96561813354492,
+            "average_normalized_score": 0.77051137373862
+        }
+    },
+    {
+        "image": "image_34.png",
+        "prompt": "A person dancing under string lights.",
+        "seed": 10193,
+        "scores": {
+            "brisque": 28.58074951171875,
+            "clip_score": 34.639427185058594,
+            "average_normalized_score": 0.9775389104350545
+        }
+    },
+    {
+        "image": "image_35.png",
+        "prompt": "A man playing chess with a friend in a park.",
+        "seed": 87283,
+        "scores": {
+            "brisque": 28.33905029296875,
+            "clip_score": 35.672271728515625,
+            "average_normalized_score": 0.7971947425106705
+        }
+    },
+    {
+        "image": "image_36.png",
+        "prompt": "A teacher helping a child with a science project.",
+        "seed": 24672,
+        "scores": {
+            "brisque": 19.05096435546875,
+            "clip_score": 29.65427017211914,
+            "average_normalized_score": 0.7421454992828478
+        }
+    },
+    {
+        "image": "image_37.png",
+        "prompt": "A person cheering at a sports game.",
+        "seed": 67084,
+        "scores": {
+            "brisque": 30.22882080078125,
+            "clip_score": 33.52412033081055,
+            "average_normalized_score": 0.9305524468538464
+        }
+    },
+    {
+        "image": "image_38.png",
+        "prompt": "A young woman taking a stroll with her dog.",
+        "seed": 60768,
+        "scores": {
+            "brisque": 30.25244140625,
+            "clip_score": 32.595603942871094,
+            "average_normalized_score": 0.9441917851080803
+        }
+    },
+    {
+        "image": "image_39.png",
+        "prompt": "A firefighter spraying water to put out a fire.",
+        "seed": 72632,
+        "scores": {
+            "brisque": 21.55535888671875,
+            "clip_score": 35.413631439208984,
+            "average_normalized_score": 0.6178863658958638
+        }
+    },
+    {
+        "image": "image_40.png",
+        "prompt": "A person decorating a Christmas tree.",
+        "seed": 85168,
+        "scores": {
+            "brisque": 18.832275390625,
+            "clip_score": 32.66312026977539,
+            "average_normalized_score": 0.736960709142932
+        }
+    },
+    {
+        "image": "image_41.png",
+        "prompt": "A nurse caring for a patient in a hospital room.",
+        "seed": 47644,
+        "scores": {
+            "brisque": 24.63494873046875,
+            "clip_score": 29.88706398010254,
+            "average_normalized_score": 0.8453402744320719
+        }
+    },
+    {
+        "image": "image_42.png",
+        "prompt": "A person walking through an art gallery.",
+        "seed": 28168,
+        "scores": {
+            "brisque": 30.65423583984375,
+            "clip_score": 32.10840606689453,
+            "average_normalized_score": 0.8816065193405295
+        }
+    },
+    {
+        "image": "image_43.png",
+        "prompt": "A person hiking through a forest trail.",
+        "seed": 20386,
+        "scores": {
+            "brisque": 26.32794189453125,
+            "clip_score": 32.66533660888672,
+            "average_normalized_score": 0.9780930635767573
+        }
+    },
+    {
+        "image": "image_44.png",
+        "prompt": "A person enjoying a coffee at a sidewalk caf\u00e9.",
+        "seed": 78816,
+        "scores": {
+            "brisque": 41.219970703125,
+            "clip_score": 31.276348114013672,
+            "average_normalized_score": 0.7402519398720822
+        }
+    },
+    {
+        "image": "image_45.png",
+        "prompt": "A child building a sandcastle at the beach.",
+        "seed": 28586,
+        "scores": {
+            "brisque": 27.96722412109375,
+            "clip_score": 36.06367874145508,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_46.png",
+        "prompt": "A woman holding an umbrella, walking in the rain.",
+        "seed": 15648,
+        "scores": {
+            "brisque": 31.05096435546875,
+            "clip_score": 32.027801513671875,
+            "average_normalized_score": 0.7566903067573598
+        }
+    },
+    {
+        "image": "image_47.png",
+        "prompt": "A person on a road trip in a car.",
+        "seed": 23647,
+        "scores": {
+            "brisque": 42.506011962890625,
+            "clip_score": 28.275348663330078,
+            "average_normalized_score": 0.9674525408299699
+        }
+    },
+    {
+        "image": "image_48.png",
+        "prompt": "A man practicing martial arts in a dojo.",
+        "seed": 53743,
+        "scores": {
+            "brisque": 55.38330078125,
+            "clip_score": 32.96509552001953,
+            "average_normalized_score": 0.8532772333244463
+        }
+    },
+    {
+        "image": "image_49.png",
+        "prompt": "A chef serving dishes in a restaurant.",
+        "seed": 62367,
+        "scores": {
+            "brisque": 38.611328125,
+            "clip_score": 31.184303283691406,
+            "average_normalized_score": 0.9151691510938136
+        }
+    },
+    {
+        "image": "image_50.png",
+        "prompt": "A person playing board games in the living room.",
+        "seed": 71558,
+        "scores": {
+            "brisque": 34.15106201171875,
+            "clip_score": 33.63685989379883,
+            "average_normalized_score": 0.9422776556828745
+        }
+    },
+    {
+        "image": "image_51.png",
+        "prompt": "A child helping an elderly person cross the street.",
+        "seed": 96821,
+        "scores": {
+            "brisque": 20.98760986328125,
+            "clip_score": 34.35061264038086,
+            "average_normalized_score": 0.9041637159947945
+        }
+    },
+    {
+        "image": "image_52.png",
+        "prompt": "A painter working on a mural on a city wall.",
+        "seed": 11265,
+        "scores": {
+            "brisque": 14.29180908203125,
+            "clip_score": 35.58566665649414,
+            "average_normalized_score": 0.7593366307451017
+        }
+    },
+    {
+        "image": "image_53.png",
+        "prompt": "A woman feeding birds in a park.",
+        "seed": 43266,
+        "scores": {
+            "brisque": 28.64080810546875,
+            "clip_score": 31.410350799560547,
+            "average_normalized_score": 0.6255602061827918
+        }
+    },
+    {
+        "image": "image_54.png",
+        "prompt": "A child drawing with crayons on paper.",
+        "seed": 99581,
+        "scores": {
+            "brisque": 24.5478515625,
+            "clip_score": 33.17861557006836,
+            "average_normalized_score": 0.8249659304578831
+        }
+    },
+    {
+        "image": "image_55.png",
+        "prompt": "A person dancing at a wedding reception.",
+        "seed": 35567,
+        "scores": {
+            "brisque": 15.21405029296875,
+            "clip_score": 35.35944366455078,
+            "average_normalized_score": 0.6807851835376302
+        }
+    },
+    {
+        "image": "image_56.png",
+        "prompt": "A runner crossing the finish line in a race.",
+        "seed": 20764,
+        "scores": {
+            "brisque": 28.59136962890625,
+            "clip_score": 30.791303634643555,
+            "average_normalized_score": 0.8331144912823758
+        }
+    },
+    {
+        "image": "image_57.png",
+        "prompt": "A person reading a newspaper on a bench.",
+        "seed": 41009,
+        "scores": {
+            "brisque": 31.87542724609375,
+            "clip_score": 34.77060317993164,
+            "average_normalized_score": 0.9632751605865537
+        }
+    },
+    {
+        "image": "image_58.png",
+        "prompt": "A person laughing at a coffee shop.",
+        "seed": 25813,
+        "scores": {
+            "brisque": 14.15875244140625,
+            "clip_score": 34.435630798339844,
+            "average_normalized_score": 0.6761605192861555
+        }
+    },
+    {
+        "image": "image_59.png",
+        "prompt": "A young artist sketching in a notebook outdoors.",
+        "seed": 81682,
+        "scores": {
+            "brisque": 24.7962646484375,
+            "clip_score": 36.2735595703125,
+            "average_normalized_score": 0.8271253063381977
+        }
+    },
+    {
+        "image": "image_60.png",
+        "prompt": "A person walking through a zoo, looking at animals.",
+        "seed": 21812,
+        "scores": {
+            "brisque": 27.8736572265625,
+            "clip_score": 36.87992477416992,
+            "average_normalized_score": 0.9999999999999998
+        }
+    },
+    {
+        "image": "image_61.png",
+        "prompt": "A photographer capturing a sunset over a lake.",
+        "seed": 54209,
+        "scores": {
+            "brisque": 25.8203125,
+            "clip_score": 34.877986907958984,
+            "average_normalized_score": 0.888424191890449
+        }
+    },
+    {
+        "image": "image_62.png",
+        "prompt": "A person playing piano in a concert hall.",
+        "seed": 91307,
+        "scores": {
+            "brisque": 51.147705078125,
+            "clip_score": 34.0926513671875,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_63.png",
+        "prompt": "A man giving a speech at a podium.",
+        "seed": 46639,
+        "scores": {
+            "brisque": 11.90631103515625,
+            "clip_score": 34.164005279541016,
+            "average_normalized_score": 0.8303054096021929
+        }
+    },
+    {
+        "image": "image_64.png",
+        "prompt": "A student studying in a library.",
+        "seed": 71285,
+        "scores": {
+            "brisque": 39.7447509765625,
+            "clip_score": 35.14478302001953,
+            "average_normalized_score": 0.8451933595982356
+        }
+    },
+    {
+        "image": "image_65.png",
+        "prompt": "A doctor examining a patient in an office.",
+        "seed": 42046,
+        "scores": {
+            "brisque": 20.993408203125,
+            "clip_score": 29.032793045043945,
+            "average_normalized_score": 0.716463009310132
+        }
+    },
+    {
+        "image": "image_66.png",
+        "prompt": "A gardener trimming hedges in a garden.",
+        "seed": 47052,
+        "scores": {
+            "brisque": 26.2440185546875,
+            "clip_score": 37.3099479675293,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_67.png",
+        "prompt": "A person sharing a dessert in a caf\u00e9.",
+        "seed": 20677,
+        "scores": {
+            "brisque": 30.27899169921875,
+            "clip_score": 29.68008804321289,
+            "average_normalized_score": 0.7591689705134943
+        }
+    },
+    {
+        "image": "image_68.png",
+        "prompt": "A woman practicing ballet in a studio.",
+        "seed": 43623,
+        "scores": {
+            "brisque": 36.53704833984375,
+            "clip_score": 32.30623245239258,
+            "average_normalized_score": 0.8874007920156086
+        }
+    },
+    {
+        "image": "image_69.png",
+        "prompt": "A person walking their dog in a park.",
+        "seed": 50175,
+        "scores": {
+            "brisque": 28.18060302734375,
+            "clip_score": 33.085357666015625,
+            "average_normalized_score": 0.785577755653183
+        }
+    },
+    {
+        "image": "image_70.png",
+        "prompt": "A hiker crossing a wooden bridge over a river.",
+        "seed": 82859,
+        "scores": {
+            "brisque": 20.7459716796875,
+            "clip_score": 34.35011291503906,
+            "average_normalized_score": 0.8849058769175535
+        }
+    },
+    {
+        "image": "image_71.png",
+        "prompt": "A person playing soccer in a neighborhood park.",
+        "seed": 89714,
+        "scores": {
+            "brisque": 33.7266845703125,
+            "clip_score": 32.65631866455078,
+            "average_normalized_score": 0.9596035196351123
+        }
+    },
+    {
+        "image": "image_72.png",
+        "prompt": "A child coloring with markers on a big paper.",
+        "seed": 50045,
+        "scores": {
+            "brisque": 14.3851318359375,
+            "clip_score": 36.26053237915039,
+            "average_normalized_score": 0.8090431253697316
+        }
+    },
+    {
+        "image": "image_73.png",
+        "prompt": "A person riding a bicycle along a scenic trail.",
+        "seed": 27434,
+        "scores": {
+            "brisque": 19.07720947265625,
+            "clip_score": 32.604618072509766,
+            "average_normalized_score": 0.8809739431735234
+        }
+    },
+    {
+        "image": "image_74.png",
+        "prompt": "A person learning to surf on a sunny beach.",
+        "seed": 80029,
+        "scores": {
+            "brisque": 29.5992431640625,
+            "clip_score": 31.10976219177246,
+            "average_normalized_score": 0.9762899742160167
+        }
+    },
+    {
+        "image": "image_75.png",
+        "prompt": "A tourist on a guided city tour.",
+        "seed": 49332,
+        "scores": {
+            "brisque": 39.30712890625,
+            "clip_score": 27.2324275970459,
+            "average_normalized_score": 0.6197892475796158
+        }
+    },
+    {
+        "image": "image_76.png",
+        "prompt": "A woman shopping for fresh produce at a market.",
+        "seed": 88638,
+        "scores": {
+            "brisque": 27.15899658203125,
+            "clip_score": 35.884971618652344,
+            "average_normalized_score": 0.7838643052986852
+        }
+    },
+    {
+        "image": "image_77.png",
+        "prompt": "A teacher reading a story to children.",
+        "seed": 46185,
+        "scores": {
+            "brisque": 31.8536376953125,
+            "clip_score": 30.898666381835938,
+            "average_normalized_score": 0.7919168516171453
+        }
+    },
+    {
+        "image": "image_78.png",
+        "prompt": "A person watching the sunset alone.",
+        "seed": 71146,
+        "scores": {
+            "brisque": 9.88494873046875,
+            "clip_score": 30.797992706298828,
+            "average_normalized_score": 0.7720769988852448
+        }
+    },
+    {
+        "image": "image_79.png",
+        "prompt": "A boy playing catch with his dad.",
+        "seed": 42255,
+        "scores": {
+            "brisque": 33.594482421875,
+            "clip_score": 32.22386169433594,
+            "average_normalized_score": 0.8700856715122072
+        }
+    },
+    {
+        "image": "image_80.png",
+        "prompt": "A person sketching a portrait in a crowded plaza.",
+        "seed": 99793,
+        "scores": {
+            "brisque": 20.1890869140625,
+            "clip_score": 36.29401397705078,
+            "average_normalized_score": 0.8563518268455375
+        }
+    },
+    {
+        "image": "image_81.png",
+        "prompt": "A person enjoying a scenic boat ride.",
+        "seed": 78731,
+        "scores": {
+            "brisque": 36.72100830078125,
+            "clip_score": 32.83201599121094,
+            "average_normalized_score": 0.9999999999999999
+        }
+    },
+    {
+        "image": "image_82.png",
+        "prompt": "A person attending a live concert.",
+        "seed": 14778,
+        "scores": {
+            "brisque": 36.3914794921875,
+            "clip_score": 32.35398864746094,
+            "average_normalized_score": 0.9561110947892543
+        }
+    },
+    {
+        "image": "image_83.png",
+        "prompt": "A barista making coffee in a cozy caf\u00e9.",
+        "seed": 44378,
+        "scores": {
+            "brisque": 34.32232666015625,
+            "clip_score": 30.552112579345703,
+            "average_normalized_score": 0.8985366145443577
+        }
+    },
+    {
+        "image": "image_84.png",
+        "prompt": "A young woman browsing books in a bookstore.",
+        "seed": 8255,
+        "scores": {
+            "brisque": 21.3963623046875,
+            "clip_score": 33.70779037475586,
+            "average_normalized_score": 0.7574214670201656
+        }
+    },
+    {
+        "image": "image_85.png",
+        "prompt": "A person enjoying a barbecue in their backyard.",
+        "seed": 3861,
+        "scores": {
+            "brisque": 22.07611083984375,
+            "clip_score": 33.34342956542969,
+            "average_normalized_score": 0.7705825063616683
+        }
+    },
+    {
+        "image": "image_86.png",
+        "prompt": "A child watching animals at a petting zoo.",
+        "seed": 95584,
+        "scores": {
+            "brisque": 37.573486328125,
+            "clip_score": 35.81591033935547,
+            "average_normalized_score": 0.8953420164394006
+        }
+    },
+    {
+        "image": "image_87.png",
+        "prompt": "A person sewing clothes in a small studio.",
+        "seed": 4385,
+        "scores": {
+            "brisque": 23.1890869140625,
+            "clip_score": 33.7178955078125,
+            "average_normalized_score": 0.8785425802234526
+        }
+    },
+    {
+        "image": "image_88.png",
+        "prompt": "A photographer capturing moments at a wedding.",
+        "seed": 12309,
+        "scores": {
+            "brisque": 30.475311279296875,
+            "clip_score": 34.8515739440918,
+            "average_normalized_score": 0.7930422849090667
+        }
+    },
+    {
+        "image": "image_89.png",
+        "prompt": "A man cooking breakfast in a bright kitchen.",
+        "seed": 38308,
+        "scores": {
+            "brisque": 30.937744140625,
+            "clip_score": 32.951717376708984,
+            "average_normalized_score": 0.932766798059154
+        }
+    },
+    {
+        "image": "image_90.png",
+        "prompt": "A person swimming in a pool.",
+        "seed": 50757,
+        "scores": {
+            "brisque": 31.15313720703125,
+            "clip_score": 31.773527145385742,
+            "average_normalized_score": 0.7261551941639344
+        }
+    },
+    {
+        "image": "image_91.png",
+        "prompt": "A child playing with building blocks.",
+        "seed": 87652,
+        "scores": {
+            "brisque": 47.930419921875,
+            "clip_score": 32.36381530761719,
+            "average_normalized_score": 0.6313148851915433
+        }
+    },
+    {
+        "image": "image_92.png",
+        "prompt": "A person having a picnic in the park.",
+        "seed": 65118,
+        "scores": {
+            "brisque": 28.59197998046875,
+            "clip_score": 34.135398864746094,
+            "average_normalized_score": 0.9388713092788439
+        }
+    },
+    {
+        "image": "image_93.png",
+        "prompt": "A young man training at a gym.",
+        "seed": 93183,
+        "scores": {
+            "brisque": 41.20184326171875,
+            "clip_score": 29.155431747436523,
+            "average_normalized_score": 0.9176282061886076
+        }
+    },
+    {
+        "image": "image_94.png",
+        "prompt": "A woman watering plants on her balcony.",
+        "seed": 23580,
+        "scores": {
+            "brisque": 14.31170654296875,
+            "clip_score": 34.495872497558594,
+            "average_normalized_score": 0.693965252311417
+        }
+    },
+    {
+        "image": "image_95.png",
+        "prompt": "A person sightseeing on a bicycle in a city.",
+        "seed": 17270,
+        "scores": {
+            "brisque": 25.52850341796875,
+            "clip_score": 31.55060386657715,
+            "average_normalized_score": 0.6553467567034701
+        }
+    },
+    {
+        "image": "image_96.png",
+        "prompt": "A person playing violin in a subway station.",
+        "seed": 32,
+        "scores": {
+            "brisque": 19.887939453125,
+            "clip_score": 36.63460159301758,
+            "average_normalized_score": 0.7442041404078348
+        }
+    },
+    {
+        "image": "image_97.png",
+        "prompt": "A person relaxing on the beach under an umbrella.",
+        "seed": 28017,
+        "scores": {
+            "brisque": 31.27886962890625,
+            "clip_score": 33.55815505981445,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_98.png",
+        "prompt": "A person walking hand in hand through a snowy street.",
+        "seed": 90776,
+        "scores": {
+            "brisque": 17.10723876953125,
+            "clip_score": 31.893396377563477,
+            "average_normalized_score": 0.7425607587433314
+        }
+    },
+    {
+        "image": "image_99.png",
+        "prompt": "A person sketching nature in a peaceful meadow.",
+        "seed": 51371,
+        "scores": {
+            "brisque": 22.89276123046875,
+            "clip_score": 37.76280212402344,
+            "average_normalized_score": 1.0
+        }
+    },
+    {
+        "image": "image_100.png",
+        "prompt": "A person exploring a historic castle.",
+        "seed": 67354,
+        "scores": {
+            "brisque": 27.2847900390625,
+            "clip_score": 32.070716857910156,
+            "average_normalized_score": 0.7110282114643653
+        }
+    }
+]

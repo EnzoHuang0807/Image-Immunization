@@ -9,7 +9,7 @@ pudb==2019.2
 invisible-watermark
 imageio==2.9.0
 imageio-ffmpeg==0.4.2
-pytorch-lightning==2.4.0
+pytorch-lightning==1.4.2 # pytorch-lightning==2.4.0
 omegaconf==2.3.0
 test-tube>=0.7.5
 streamlit>=0.73.1
@@ -25,8 +25,8 @@ colorama==0.4.6
 accelerate==1.0.1
 ultralytics==8.3.23
 supervision==0.24.0
+lpips
 -e git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
 -e git+https://github.com/openai/CLIP.git@main#egg=clip
 advertorch@git+https://github.com/BorealisAI/advertorch.git
 segment_anything @ git+https://github.com/facebookresearch/segment-anything.git@dca509fe793f601edb92606367a655c15ac00fdf
-

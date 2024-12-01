@@ -82,7 +82,7 @@ def normalized_(x):
     return (x - x.min() / x.max() - x.min())
 
 
-def get_dir_name_from_config(mode, g_mode, using_target, eps=16, steps=100, target_rate=5, prefix='output'):
+def get_dir_name_from_config(mode, g_mode, using_target, eps=16, steps=100, target_rate=5, prefix='output_target'):
     if mode == 'none':
         return f'{prefix}/none/'
     
@@ -94,14 +94,21 @@ def get_dir_name_from_config(mode, g_mode, using_target, eps=16, steps=100, targ
     return dir_name
 
 
+# EXP_LIST = [
+#     ('advdm', '+', False, -1),
+#     ('advdm', '-', False, -1),
+#     ('mist', '+', False, -1),
+#     ('sds', '+', False, -1),
+#     ('sds', '-', False, -1),
+#     ('sds', '-', True, 5),
+#     ('texture_only', '+', False, -1),
+#     ('none', '-', False, -1)
+# ]
 EXP_LIST = [
-    ('advdm', '+', False, -1),
-    ('advdm', '-', False, -1),
     ('mist', '+', False, -1),
-    ('sds', '+', False, -1),
-    ('sds', '-', False, -1),
-    ('sds', '-', True, 5),
+    ('mist', '-', False, -1),
     ('texture_only', '+', False, -1),
+    ('texture_only', '-', False, -1),
     ('none', '-', False, -1)
 ]
 

@@ -1,0 +1,18 @@
+attack:
+    epsilon: 16
+    steps: 100
+    input_size: 512
+    mode: sds
+    image_dir: ./SHHQ-1.0_samples/
+    mask_dir: './SHHQ-1.0_samples/face_masks/'
+    output_path: output_target/
+    target_image_path: './SHHQ-1.0_samples/inpaint/'
+    alpha: 1
+    g_mode: "-"
+    use_wandb: False
+    project_name: iclr_mist
+    diff_pgd: [False, 0.2, 'ddim100'] # un-used feature
+    using_target: False
+    target_rate: 5
+    device: 0
+    max_exp_num: 100

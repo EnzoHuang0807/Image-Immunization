@@ -162,7 +162,7 @@ class target_model(nn.Module):
         if self.mode == 'advdm': # 
             return - loss_semantic * g_dir
         elif self.mode == 'texture_only':
-            return self.fn(zx, zy)
+            return self.fn(zx, zy) * g_dir
         elif self.mode == 'mist':
             return self.fn(zx, zy) * g_dir  - loss_semantic * self.rate
         elif self.mode == 'texture_self_enhance':
@@ -360,7 +360,7 @@ def infer(img: PIL.Image.Image, mask_img: PIL.Image.Image, config, tar_img: PIL.
 
 
 
-@hydra.main(version_base=None, config_path=os.path.join(os.getcwd(), "./configs/attack"), config_name="base")
+@hydra.main(version_base=None, config_path=os.path.join(os.getcwd(), "./configs/attack"), config_name="target")
 def main(cfg : DictConfig):
     print(cfg.attack)
     time_start = time.time()
@@ -431,9 +431,12 @@ def main(cfg : DictConfig):
         file_name = image_path.rsplit('/')[-1].rsplit('.')[0]
         mp(output_path + file_name)
         mask_path = mask_dir + file_name + "_mask.png"
+
+        ###
+        target_inpaint_path = target_image_path + file_name + "_inpaint.png"
         
         img = load_image_from_path(image_path, input_size)
-        tar_img = load_image_from_path(target_image_path, input_size)
+        tar_img = load_image_from_path(target_inpaint_path, input_size)
         mask_img = load_image_from_path(mask_path, input_size)
       
         
